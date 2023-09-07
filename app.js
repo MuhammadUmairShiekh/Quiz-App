@@ -18,7 +18,7 @@ const question = [
         "correct": "ans2",
     },
 
-    
+
     {
         "ques": "What letter is not present anywhere on the periodic table of elements? ",
         "ans1": "Q",
@@ -50,13 +50,14 @@ const question = [
 let total = question.length
 let right = 0, wrong = 0;
 let index = 0;
+let count = document.getElementById("count")
 const quesList = document.getElementById("quesList")
 const optionInpt = document.querySelectorAll(".optionAll")
 // const btn = document.querySelector(".sub")
 const loadFunction = () => {
-        if (index === total) {
-           return endQuiz()
-        }
+    if (index === total) {
+        return endQuiz()
+    }
     resestQuiz()
     const data = question[index]
     quesList.innerText = `Ques ${index + 1}:  ${data.ques}`
@@ -66,19 +67,31 @@ const loadFunction = () => {
     optionInpt[3].nextElementSibling.innerText = data.ans4;
 }
 
+let ready = document.querySelector(".ready")
 const sub = () => {
     const data = question[index]
+    count.innerText = `Out Of: ${index + 2}/5`
     const ans = getAnswer()
-    if (ans == data.correct) {
+    if (ans === data.correct) {
         right++
+
+
+
     }
     else {
         wrong++
+
+
+
     }
     index++
     loadFunction()
     return
+
+
+
 }
+
 
 const getAnswer = () => {
     let answer;
@@ -86,10 +99,10 @@ const getAnswer = () => {
         (input) => {
             if (input.checked) {
                 answer = input.value;
-              
+
             }
-        }) 
-        return answer
+        })
+    return answer
 }
 
 const resestQuiz = () => {
@@ -99,31 +112,37 @@ const resestQuiz = () => {
 
 
         })
-} 
+}
 
-const endQuiz = ()=>{
-    if( right === 2 || right == 3 ){
-            
-    document.querySelector(".child-container").innerHTML =`
+const endQuiz = () => {
+    if (right === 2 || right == 3) {
+
+        document.querySelector(".child-container").innerHTML = `
       
     <h4> Thanks For Playing the Quiz </h4>
     <span>  ${right} / ${total} are correct you win </span>  
-    <button onclick="res()" > Play Again </button>    
+    <button onclick="res()"> Play Again </button>    
     `
-} else if (right == 1 || right == 0){
-    document.querySelector(".child-container").innerHTML =`
+    } else if (right == 1 || right == 0) {
+        document.querySelector(".child-container").innerHTML = `
     <h5> You Are Fail please try again later </h5>
     <span>  ${right} / ${total} are correct you fail </span> 
     <button onclick="res()" > Play Again </button>
     `
-};
+    };
 
 
 
-   
-} 
 
-const res = ()=>{
-    resestQuiz()
 }
+
+const res = () => {
+    window.location.href = "./quiz.html"
+}
+
+
+
+
+
+
 loadFunction()
